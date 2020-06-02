@@ -14,12 +14,14 @@
 	SetEnv, title, Menu Tray Icon
 	SetEnv, mode, For Shutdown Reboot
 	SetEnv, Author, LostByteSoft
-	SetEnv, version, Version 2020-05-24
-	SetEnv, icofolder, C:\Program Files (x86)\Common Files
+	SetEnv, version, Version 2020-06-02
+	SetEnv, icofolder, C:\Program Files\Common Files
 	SetEnv, logoicon, ico_HotKeys.ico
 	SetENv, debug, 0
 
 	;; Specific Icons (or files)
+
+	FileInstall, ico_HotKeys.ico, %icofolder%\ico_HotKeys.ico, 0
 
 	;; Common ico
 	FileInstall, SharedIcons\ico_about.ico, %icofolder%\ico_about.ico, 0
@@ -28,7 +30,6 @@
 	FileInstall, SharedIcons\ico_reboot.ico, %icofolder%\ico_reboot.ico, 0
 	FileInstall, SharedIcons\ico_shut.ico, %icofolder%\ico_shut.ico, 0
 	FileInstall, SharedIcons\ico_debug.ico, %icofolder%\ico_debug.ico, 0
-	FileInstall, SharedIcons\ico_HotKeys.ico, %icofolder%\ico_HotKeys.ico, 0
 	FileInstall, SharedIcons\ico_pause.ico, %icofolder%\ico_pause.ico, 0
 	FileInstall, SharedIcons\ico_loupe.ico, %icofolder%\ico_loupe.ico, 0
 	FileInstall, SharedIcons\ico_folder.ico, %icofolder%\ico_folder.ico, 0
@@ -72,32 +73,52 @@
 	Menu, tray, add,
 	Menu, tray, add, --== Options ==--, about
 	Menu, Tray, Icon, --== Options ==--, %icofolder%\ico_options.ico
-	Menu, tray, add, No options, about					; author msg box
-	menu, tray, disable, No options
+	;;Menu, tray, add, No options, about					; author msg box
+	;;menu, tray, disable, No options
+	menu, tray, add, Show Gui (Same as click),  menugui
+	Menu, Tray, Icon, Show Gui (Same as click), %icofolder%\ico_loupe.ico
+	Menu, Tray, Default, Show Gui (Same as click)
+	Menu, Tray, Click, 1
 	menu, tray, add,
 	Menu, Tray, Tip, %title% %mode%
 
 ;;--- Software start here ---
 
 start:
-sleep, 10000
-goto, start
+	sleep, 10000
+	goto, start
 
+menugui:
+	;; A menu gui for options
+	Gui, Add, Text, x25 y15 w350 h50 , Select option or press X. LostByteSoft CopyMiddle 2020. Computer does ?
+	Gui, Add, Button, x25 y40 w100 h60 , Session
+	Gui, Add, Button, x135 y40 w100 h60 , Sleep
+	Gui, Add, Button, x245 y40 w100 h60 , Reboot
+	Gui, Add, Button, x355 y40 w100 h60 , Shutdown
+	Gui, Show, w475 , Menu Tray Icon
+return
+
+ButtonSession:
 session:
-run, C:\Program Files (x86)\Session.exe
-ExitApp
+	run, C:\Program Files (x86)\Session.exe
+	ExitApp
 
+ButtonSleep:
 sleep:
-run, C:\Program Files (x86)\Sleep.exe
-ExitApp
+	run, C:\Program Files (x86)\Sleep.exe
+	ExitApp
 
+ButtonReboot:
 reboot:
-run, C:\Program Files (x86)\Reboot.exe
-ExitApp
+	run, C:\Program Files (x86)\Reboot.exe
+	ExitApp
 
+ButtonShutdown:
 shutdown:
-run, C:\Program Files (x86)\Shutdown.exe
-ExitApp
+	run, C:\Program Files (x86)\Shutdown.exe
+	ExitApp
+
+	Goto, start
 
 ;;--- Debug ---
 
@@ -173,7 +194,7 @@ author:
 	Return
 
 secret:
-	MsgBox, 0, SECRET MsgBox, title=%title% - mode=%mode% - version=%version% - author=%author% - A_ScriptDir=%A_ScriptDir%
+	MsgBox, 0, %title% - SECRET MsgBox, title=%title%`nmode=%mode%`nversion=%version%`nauthor=%author%`nLogoIcon=%logoicon%`n`nDebug=%debug%`nA_ScriptDir=%A_ScriptDir%\`nA_WorkingDir=%A_WorkingDir%\`nIcoFolder=%icofolder%\`n`nClipboard (if text)=%clipboard%
 	Return
 
 GuiLogo:

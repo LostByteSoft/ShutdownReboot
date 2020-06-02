@@ -1,6 +1,10 @@
 # ShutdownReboot
 
-A simple (exe) to reboot, shutdown, lock screen and sleep the computer. Compatibility: Windows 7 8 10
+A simple (exe) to reboot, shutdown, lock screen and sleep the computer.
+
+Windows 64 bit required.
+
+Compatibility: Win 7 , Win 8 , Win 8.1 , Win 10
 
 Put the exe where you want and make a shortcut to desktop.
 
