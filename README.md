@@ -8,7 +8,7 @@ Compatibility: Win 7 , Win 8 , Win 8.1 , Win 10
 
 Put the exe where you want and make a shortcut to desktop.
 
-The icons files must be in "C:\Program Files (x86)\Common Files" .
+The icons files must be in "C:\Program Files\Common Files" .
 
 For all programs ESCAPE key will abort.
 
