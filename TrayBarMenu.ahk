@@ -14,7 +14,7 @@
 	SetEnv, title, Menu Tray Icon
 	SetEnv, mode, For Shutdown Reboot
 	SetEnv, Author, LostByteSoft
-	SetEnv, version, Version 2020-06-02
+	SetEnv, version, Version 2020-06-03
 	SetEnv, icofolder, C:\Program Files\Common Files
 	SetEnv, logoicon, ico_HotKeys.ico
 	SetENv, debug, 0
@@ -100,22 +100,22 @@ return
 
 ButtonSession:
 session:
-	run, C:\Program Files (x86)\Session.exe
+	run, C:\Program Files\Session.exe
 	ExitApp
 
 ButtonSleep:
 sleep:
-	run, C:\Program Files (x86)\Sleep.exe
+	run, C:\Program Files\Sleep.exe
 	ExitApp
 
 ButtonReboot:
 reboot:
-	run, C:\Program Files (x86)\Reboot.exe
+	run, C:\Program Files\Reboot.exe
 	ExitApp
 
 ButtonShutdown:
 shutdown:
-	run, C:\Program Files (x86)\Shutdown.exe
+	run, C:\Program Files\Shutdown.exe
 	ExitApp
 
 	Goto, start
