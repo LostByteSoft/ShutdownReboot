@@ -1,6 +1,6 @@
 WinLockScreen:
-	TrayTip, LostByteSoft, Sleep computer in 3 seconds (Escape will CANCEL)., 1, 2
-	sleep, 3000
+	TrayTip, LostByteSoft, Sleep computer in 2 seconds (Escape will CANCEL)., 1, 2
+	sleep, 2000
 
 {
 Sleep, 200

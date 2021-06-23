@@ -1,7 +1,6 @@
 ;;--- Head --- AHK ---
 
-;; Tested versions of Synergy
-;; Version synergy-v1.8.8-stable-Windows-x86.msi
+;; Stand alone version , exe working everywhere but need ico in folder C:\Program Files\Common Files
 
 ;;--- Softwares options ---
 
@@ -14,14 +13,13 @@
 	SetEnv, title, Menu Tray Icon
 	SetEnv, mode, For Shutdown Reboot
 	SetEnv, Author, LostByteSoft
-	SetEnv, version, Version 2020-06-03
+	SetEnv, version, Version 2021-06-20
 	SetEnv, icofolder, C:\Program Files\Common Files
 	SetEnv, logoicon, ico_HotKeys.ico
 	SetENv, debug, 0
 
 	;; Specific Icons (or files)
-
-	FileInstall, ico_HotKeys.ico, %icofolder%\ico_HotKeys.ico, 0
+	FileInstall, SharedIcons\ico_HotKeys.ico, %icofolder%\ico_HotKeys.ico, 0
 
 	;; Common ico
 	FileInstall, SharedIcons\ico_about.ico, %icofolder%\ico_about.ico, 0
@@ -90,7 +88,7 @@ start:
 
 menugui:
 	;; A menu gui for options
-	Gui, Add, Text, x25 y15 w350 h50 , Select option or press X. LostByteSoft CopyMiddle 2020. Computer does ?
+	Gui, Add, Text, x25 y15 w350 h50 , Select option or press X. LostByteSoft. Computer does ?
 	Gui, Add, Button, x25 y40 w100 h60 , Session
 	Gui, Add, Button, x135 y40 w100 h60 , Sleep
 	Gui, Add, Button, x245 y40 w100 h60 , Reboot
@@ -100,25 +98,23 @@ return
 
 ButtonSession:
 session:
-	run, C:\Program Files\Session.exe
+	Shutdown, 0
 	ExitApp
 
 ButtonSleep:
 sleep:
-	run, C:\Program Files\Sleep.exe
+	DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
 	ExitApp
 
 ButtonReboot:
 reboot:
-	run, C:\Program Files\Reboot.exe
+	Shutdown, 6
 	ExitApp
 
 ButtonShutdown:
 shutdown:
-	run, C:\Program Files\Shutdown.exe
+	Shutdown, 5
 	ExitApp
-
-	Goto, start
 
 ;;--- Debug ---
 
