@@ -2,7 +2,7 @@
 @if not exist "C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe" goto notins
 
 @echo -------------------------------------------------
-Ahk2Exe.exe /in "Sleep.ahk" /out "Sleep.exe" /icon "SharedIcons/ico_veille.ico" /mpress "0"
+Ahk2Exe.exe /in "Sleep.ahk" /out "Sleep.exe" /icon "ProgIcons/ico_veille.ico" /mpress "0"
 @echo -------------------------------------------------
 @exit
 

@@ -1,6 +1,6 @@
 ;;--- Head --- AHK ---
 
-;; Stand alone version , exe working everywhere but need ico in folder C:\Program Files\Common Files
+;; Stand alone version , exe working everywhere
 
 ;;--- Softwares options ---
 
@@ -13,26 +13,30 @@
 	SetEnv, title, Menu Tray Icon
 	SetEnv, mode, For Shutdown Reboot
 	SetEnv, Author, LostByteSoft
-	SetEnv, version, Version 2021-06-20
-	SetEnv, icofolder, C:\Program Files\Common Files
+	SetEnv, version, Version 2021-06-30
+	SetEnv, icofolder, %A_AppData%
 	SetEnv, logoicon, ico_HotKeys.ico
 	SetENv, debug, 0
+	SetEnv, comp, w7 w8 w8.1 w10 w11 (x64)
 
 	;; Specific Icons (or files)
-	FileInstall, SharedIcons\ico_HotKeys.ico, %icofolder%\ico_HotKeys.ico, 0
+
+	FileInstall, ProgIcons/Ico_Session.ico, %icofolder%\Ico_Session.ico, 0
+	FileInstall, ProgIcons/ico_veille.ico, %icofolder%\ico_veille.ico, 0
 
 	;; Common ico
-	FileInstall, SharedIcons\ico_about.ico, %icofolder%\ico_about.ico, 0
-	FileInstall, SharedIcons\ico_lock.ico, %icofolder%\ico_lock.ico, 0
-	FileInstall, SharedIcons\ico_options.ico, %icofolder%\ico_options.ico, 0
-	FileInstall, SharedIcons\ico_reboot.ico, %icofolder%\ico_reboot.ico, 0
-	FileInstall, SharedIcons\ico_shut.ico, %icofolder%\ico_shut.ico, 0
-	FileInstall, SharedIcons\ico_debug.ico, %icofolder%\ico_debug.ico, 0
-	FileInstall, SharedIcons\ico_pause.ico, %icofolder%\ico_pause.ico, 0
-	FileInstall, SharedIcons\ico_loupe.ico, %icofolder%\ico_loupe.ico, 0
-	FileInstall, SharedIcons\ico_folder.ico, %icofolder%\ico_folder.ico, 0
-	FileInstall, SharedIcons\ico_veille.ico, %icofolder%\ico_veille.ico, 0
-	FileInstall, SharedIcons\Ico_Session.ico, %icofolder%\Ico_Session.ico, 0
+
+	FileInstall, SharedIcons/ico_about.ico, %icofolder%\ico_about.ico, 0
+	FileInstall, SharedIcons/ico_debug.ico, %icofolder%\ico_debug.ico, 0
+	FileInstall, SharedIcons/ico_folder.ico, %icofolder%\ico_folder.ico, 0
+	FileInstall, SharedIcons/ico_HotKeys.ico, %icofolder%\ico_HotKeys.ico, 0
+	FileInstall, SharedIcons/ico_lock.ico, %icofolder%\ico_lock.ico, 0
+	FileInstall, SharedIcons/ico_loupe.ico, %icofolder%\ico_loupe.ico, 0
+	FileInstall, SharedIcons/ico_options.ico, %icofolder%\ico_options.ico, 0
+	FileInstall, SharedIcons/ico_pause.ico, %icofolder%\ico_pause.ico, 0
+	FileInstall, SharedIcons/ico_reboot.ico, %icofolder%\ico_reboot.ico, 0
+	FileInstall, SharedIcons/ico_secret.ico, %icofolder%\ico_secret.ico, 0
+	FileInstall, SharedIcons/ico_shut.ico, %icofolder%\ico_shut.ico, 0
 
 ;;--- Menu Tray options ---
 
@@ -40,39 +44,46 @@
 	Menu, tray, add, ---=== %title% ===---, about
 	Menu, Tray, Icon, ---=== %title% ===---, %icofolder%\%logoicon%
 	Menu, tray, add, Show logo, GuiLogo
-	Menu, tray, add, Secret MsgBox, secret					; Secret MsgBox, just show all options and variables of the program.
+	Menu, tray, add, Secret MsgBox, secret					; Secret MsgBox, just show all options and variables of the program
 	Menu, Tray, Icon, Secret MsgBox, %icofolder%\ico_lock.ico
-	Menu, tray, add, About && ReadMe, author				; infos about author
+	Menu, tray, add, About && ReadMe, author
 	Menu, Tray, Icon, About && ReadMe, %icofolder%\ico_about.ico
-	Menu, tray, add, Author %author%, about					; author msg box
+	Menu, tray, add, Author %author%, about
 	menu, tray, disable, Author %author%
-	Menu, tray, add, %version%, about					; version of the software
+	Menu, tray, add, %version%, about
 	menu, tray, disable, %version%
-	Menu, tray, add, Open project web page, webpage				; open web page project
-	Menu, Tray, Icon, Open project web page, %icofolder%\ico_HotKeys.ico
-	Menu, tray, add,
+	menu, tray, add
+	Menu, tray, add, Exit %title%, ExitApp					; Close exit program
+	Menu, Tray, Icon, Exit %title%, %icofolder%\ico_shut.ico
+	Menu, tray, add, Refresh %mode%, doReload				; Reload the script.
+	Menu, Tray, Icon, Refresh %mode%, %icofolder%\ico_reboot.ico, 1
+	menu, tray, add
+	Menu, tray, add, --== Control ==--, about
+	Menu, Tray, Icon, --== Control ==--, %icofolder%\ico_options.ico
+	Menu, tray, Disable, --== Control ==--
+	Menu, tray, add, Set Debug (Toggle), debug				; debug msg
+	Menu, Tray, Icon, Set Debug (Toggle), %icofolder%\ico_debug.ico
+	Menu, tray, add, Open A_WorkingDir, A_WorkingDir			; open where the exe is
+	Menu, Tray, Icon, Open A_WorkingDir, %icofolder%\ico_folder.ico
+	Menu, tray, add, Pause (Toggle), pause					; pause the script
+	Menu, Tray, Icon, Pause (Toggle), %icofolder%\ico_pause.ico
+	Menu, tray, add, Open Startup, OpenStartup
+	menu, tray, add
+	menu, tray, add, --== Options ==--, about
+	Menu, Tray, Icon, --== Options ==--, %icofolder%\ico_options.ico
+	Menu, tray, Disable, --== Options ==--
+
 	Menu, tray, add, --== Control Computer ==--, about
 	Menu, Tray, Icon, --== Control Computer ==--, %icofolder%\ico_options.ico
 	Menu, tray, add, Session, session
 	Menu, Tray, Icon, Session, %icofolder%\ico_Session.ico
-	Menu, tray, add, Sleep, sleep
+	Menu, tray, add, Sleep, sleeppc
 	Menu, Tray, Icon, Sleep, %icofolder%\ico_veille.ico
 	Menu, tray, add, Reboot, reboot
 	Menu, Tray, Icon, Reboot, %icofolder%\ico_reboot.ico
 	Menu, tray, add, Shutdown, shutdown
 	Menu, Tray, Icon, Shutdown, %icofolder%\ico_shut.ico
 	Menu, tray, add,
-	Menu, tray, add, Exit %title%, ExitApp					; Close exit program
-	Menu, Tray, Icon, Exit %title%, %icofolder%\ico_shut.ico
-	Menu, tray, add, Refresh (Ini mod), doReload 				; Reload the script.
-	Menu, Tray, Icon, Refresh (Ini mod), %icofolder%\ico_reboot.ico
-	Menu, tray, add, Pause (Toggle), pause					; pause the script
-	Menu, Tray, Icon, Pause (Toggle), %icofolder%\ico_pause.ico
-	Menu, tray, add,
-	Menu, tray, add, --== Options ==--, about
-	Menu, Tray, Icon, --== Options ==--, %icofolder%\ico_options.ico
-	;;Menu, tray, add, No options, about					; author msg box
-	;;menu, tray, disable, No options
 	menu, tray, add, Show Gui (Same as click),  menugui
 	Menu, Tray, Icon, Show Gui (Same as click), %icofolder%\ico_loupe.ico
 	Menu, Tray, Default, Show Gui (Same as click)
@@ -82,8 +93,9 @@
 
 ;;--- Software start here ---
 
+loop:
 start:
-	sleep, 10000
+	sleep, 500000
 	goto, start
 
 menugui:
@@ -102,7 +114,7 @@ session:
 	ExitApp
 
 ButtonSleep:
-sleep:
+sleeppc:
 	DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
 	ExitApp
 
@@ -116,7 +128,7 @@ shutdown:
 	Shutdown, 5
 	ExitApp
 
-;;--- Debug ---
+;;--- Common options : Debug , pause , A_WorkingDir ---
 
 debug:
 	IfEqual, debug, 0, goto, debug1
@@ -132,26 +144,33 @@ debug:
 	TrayTip, %title%, Activated ! debug=%debug%, 1, 2
 	Goto, sleep2
 
-;;--- Pause ---
-
 pause:
 	Ifequal, pause, 0, goto, paused
 	Ifequal, pause, 1, goto, unpaused
 
 	paused:
 	SetEnv, pause, 1
-	goto, sleep1
+	goto, sleep2
 
 	unpaused:	
 	Menu, Tray, Icon, %icofolder%\%logoicon%
 	SetEnv, pause, 0
-	Goto, start
+	Goto, loop
 
 	sleep1:
 	Menu, Tray, Icon, %icofolder%\ico_pause.ico
 	sleep2:
 	sleep, 500000
 	goto, sleep2
+
+A_WorkingDir:
+	IfEqual, debug, 1, msgbox, run, explorer.exe "%A_WorkingDir%"
+	run, explorer.exe "%A_WorkingDir%"
+	Return
+
+OpenStartup:
+	run, explorer.exe "%A_AppData%\Microsoft\Windows\Start Menu\Programs\Startup"
+	Return
 
 ;;--- Quit ---
 
@@ -190,7 +209,7 @@ author:
 	Return
 
 secret:
-	MsgBox, 0, %title% - SECRET MsgBox, title=%title%`nmode=%mode%`nversion=%version%`nauthor=%author%`nLogoIcon=%logoicon%`n`nDebug=%debug%`nA_ScriptDir=%A_ScriptDir%\`nA_WorkingDir=%A_WorkingDir%\`nIcoFolder=%icofolder%\`n`nClipboard (if text)=%clipboard%
+	MsgBox, 0, %title% - SECRET MsgBox, author=%author% mode=%mode% version=%version% Compatibility=%comp% logoicon=%logoicon% Debug=%debug%`n`nA_WorkingDir=%A_WorkingDir%`n`nA_ScriptDir=%A_ScriptDir%`n`nA_UserName=%A_UserName%`n`nA_AppData=%A_AppData%`n`n
 	Return
 
 GuiLogo:
@@ -204,11 +223,6 @@ GuiLogo:
 	4GuiClose:
 	Gui 4:Cancel
 	return
-
-A_WorkingDir:
-	IfEqual, debug, 1, msgbox, run, explorer.exe "%A_WorkingDir%"
-	run, explorer.exe "%A_WorkingDir%"
-	Return
 
 webpage:
 	run, https://github.com/LostByteSoft

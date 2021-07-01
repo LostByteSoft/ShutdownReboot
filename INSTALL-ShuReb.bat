@@ -10,7 +10,7 @@ echo ShutdownReboot
 @echo -------------------------------------
 taskkill /im "TrayBarMenu.exe"
 @echo -------------------------------------
-copy "SharedIcons\*.ico" "C:\Program Files\Common Files\"
+@echo copy "SharedIcons\*.ico" "C:\Program Files\Common Files\"
 @echo -------------------------------------
 taskkill /im "TrayBarMenu.exe"
 copy "TrayBarMenu.exe" "C:\Program Files\"

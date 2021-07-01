@@ -2,7 +2,7 @@
 @if not exist "C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe" goto notins
 
 @echo -------------------------------------------------
-Ahk2Exe.exe /in "Session.ahk" /out "Session.exe" /icon "SharedIcons/Ico_Session.ico" /mpress "0"
+Ahk2Exe.exe /in "Session.ahk" /out "Session.exe" /icon "ProgIcons/Ico_Session.ico" /mpress "0"
 @echo -------------------------------------------------
 @exit
 
